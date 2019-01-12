@@ -1,0 +1,67 @@
+Exercises
+For exercises requiring code, you are free to use the language of your choice.
+
+
+What is a binary tree and what makes it unique to other trees?
+A: A data structure that has a root and may have up to two child Nodes, which makes it unique to other 
+   trees.
+
+What is a heuristic?
+A: A heuristic is an educated guess sufficient for reaching an immediate goal.
+
+What is another problem besides the shortest-path problem that requires the use of heuristics?
+A: Online searches. To find the most revelant resources you would use heuristics to guess what words or 
+   phrases would best work.
+
+What is the difference between a depth-first search and a breadth-first search?
+A: A DFS searches down a single branch to find the desired element, then moves upward and down again,
+   if the element is not found. BFS searches across rows of Nodes before traveling down to the next 
+   branch/row. 
+
+Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+A: A graph that connects two Nodes but does not have a beginning or an end, does not form loops, and
+   does not assign the cost of travel between Nodes.
+
+What kind of graph is a binary search tree?
+A: An undirected, a-cyclic, unweighted graph.
+
+
+Programming Questions
+
+1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+   Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+
+    A:    function searchTree(value) {
+   	     let current = tree;
+
+           while(current) {
+               if(current.value == value) {
+                  return true;
+              } else if (current.value > value) {
+         	  current = current.left;
+              } else {
+                  current = current.right;
+            }
+           }	
+	   return false;	          
+         }
+
+
+2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+   Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+
+    A:    function getDistance(n1, n2) {
+	          
+            for (let i = 0; i < n1.length; i++) {
+	      if(n1[i] !== n2[i]) {
+                var distance = ((n1.length - i) + (n2.length - i) - 2);
+		return distance; 
+              }
+            }
+
+          }   
+
