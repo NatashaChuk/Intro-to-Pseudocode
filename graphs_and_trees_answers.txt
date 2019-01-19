@@ -26,11 +26,65 @@ What kind of graph is a binary search tree?
 A: An undirected, a-cyclic, unweighted graph.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Programming Questions
 
 1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
 
    Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+var tree = {
+  value: 8,
+  left: {
+    value: 3,
+    left: {
+      value: 1,
+      right: null,
+      left: null,
+    },
+    right: {
+      value: 6,
+      right: {
+        value: 7,
+        right: null,
+        left: null,
+      },
+      left: {
+        value: 4,
+        right: null,
+        left: null,
+      }
+    }
+  },
+  right: {
+    value: 10,
+    left: null,
+    right: {
+      value: 14,
+      right: null,
+      left: {
+        value: 13,
+        right: null,
+        left: null,
+      }
+    }
+  }
+}
 
 
     A:    function searchTree(value) {
@@ -48,20 +102,46 @@ Programming Questions
 	   return false;	          
          }
 
+   console.log(searchTree(5));
+   console.log(searchTree(10));
+
 
 2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
 
    Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
 
 
-    A:    function getDistance(n1, n2) {
-	          
-            for (let i = 0; i < n1.length; i++) {
-	      if(n1[i] !== n2[i]) {
-                var distance = ((n1.length - i) + (n2.length - i) - 2);
-		return distance; 
+    A:    function findRoute(value) {
+	    	  var current = tree;
+		  var array = [“tree”];
+		  while(current) {
+			if(current.value == value) {
+			   array.push(“value”);
+			   return array;
+			} else if (current.value > value ) {
+			   array.push(“left”);
+			   current = current.left;
+			} else {
+				array.push(“right”)
+				current = current.right;
+			}
+		  }
+		  return false;
+           }
+
+	     function getDistance(n1, n2) {
+	       var n1 = findRoute(n1);
+		 var n2 = findRoute(n2);   
+             
+		 for (let i = 0; i < n1.length; i++) {
+	        if(n1[i] !== n2[i]) {
+              var distance = ((n1.length - i) + (n2.length - i) - 2);
+		   return distance; 
               }
             }
 
           }   
-
+	
+	     console.log(getDistance(1, 10));
+	     console.log(getDistance(4, 14));
+	     console.log(getDistance(3, 7));
