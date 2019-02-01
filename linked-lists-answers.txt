@@ -1,15 +1,10 @@
 1. What are some pros and cons of using linked lists instead of arrays?
-	A: Some pros of using linked lists are that each node is independent in memory,
-	   so it can be stored in an available memory location. This is	beneficial over
-	   arrays as it allows immense growth without the expense that arrays would have
-	   for doing the same. A con is that elements can’t be accessed immediately by 
-	   index as in an array. Instead, elements must be accessed sequentially starting
-           from the first node, which can be very inefficient. 
+	A: Some pros of using linked lists are that each node is 		  	   independent in memory, so it can be stored in an available 	  	   memory location. This is	beneficial over arrays as it allows 	   immense growth without the expense that arrays would have
+	   for doing the same. A con is that elements can’t be accessed 	   immediately by index as in an array. Instead, elements must be 	   accessed sequentially starting from the first node, which can be 	   very inefficient. 
 
 
 2. Come up with a real world example of a linked list.
-	A: Thinking simply, I would think of a train as an example of a linked list. It has a
-	   specified head and a tail. The coach body could be viewed as the individual nodes in between.
+	A: Thinking simply, I would think of a train as an example of a 	   linked list. It has a specified head and a tail. The coach body 	   could be viewed as the individual nodes in between.
 
 
 
@@ -24,77 +19,52 @@ Before beginning to code, write out a plan explaining how to solve the question.
     Submit both an explanation of the bug and a functional implementation of the method.
 
 
-		FUNCTION push(element)
-		CREATE node
-		SET node.value TO element
-		SET node.next TO null
-
-		IF the head node does not exist
- 		 THEN SET head to node
-		ELSE
-		 SET current to head
-		 SET current.next to node
-		END IF
-		END FUNCTION
-
-
 
 	A:  The bug in the pseudocode is in the lines “SET current to head  SET current.next to node”. 
 	    You want the new node to be added to the end instead of the second spot. 
 
-		FUNCTION push(element)
-		CREATE node
-		SET node.value TO element
-		SET node.next TO null
+		class LinkedList {
+		   constructor(){
+			this.head= null;
+            }
+ 
+		push(element){
+		  var newNode = {
+		    value: element,
+    		    next: null,
+		};
 
-		IF the head node does not exist
- 		 THEN SET head TO node
-		ELSE
-		 SET current TO head
-		 WHILE current.next is not empty
-		   SET current TO current.next
-		 END WHILE
-		 SET current.next TO node
-		END IF
-		END FUNCTION
+		If (!LinkedList.head) {
+		   LinkedList.head = newNode;
+		} else {
+		   let current = LinkedList.head;
+		   while(current.next != null) {
+			current = current.next;
+		   }
+		   current.next = newNode;
+		 }
+		
+	    }
 
 
+	    removeDuplicates() {
+		var singles = [];
+		var current = Linkedlist.head; 
+		singles.push(current.value);
 
-2. Given an unsorted singly linked list, remove all duplicates from the linked list.
-	Example
-	Input: a -> c -> d -> d -> a
-	Output: a -> c -> d
-
-
-	A:  FUNCTION removeDuplicates()
-		CREATE array
-		SET current TO head
-		SET node.next TO null
-
-		CALL push on current.value
-		WHILE current.next is not empty
-		   IF arr includes current.next.value
-		     THEN SET current to current.next
-		   ELSE
-		     SET current to current.next THEN
-		     CALL push on current.value
-		   END IF
-		END WHILE
-		RETURN arr
-	     END FUNCTION
+		while(current.next != null){
+		   if(singles.includes(current.next.value)){
+		       current = current.next;
+		   } else {
+		      current = current.next;
+		      singles.push(current.value);
+		   }
+		}
+		return singles;
+	     }
 		
 
-
-
-
-3. Given an unsorted singly linked list, reverse it.
-	Example
-	Input: a -> b -> c -> d
-	Output: d -> c -> b -> a
-
-
-
-	A:	reverse() {
+          reverse() {
 		  var list = [];
   		  var reversedList = [];
 		 
@@ -111,5 +81,13 @@ Before beginning to code, write out a plan explaining how to solve the question.
 		  }
 		
 		  return reversedList;
- 		 }
-	       }	
+ 		  }
+	       }
+
+		var test = new LinkedList();
+
+		test.push(‘developer’);
+		test.push(‘designer’);
+
+		test.removeDuplicate();
+		test.reverse();	
