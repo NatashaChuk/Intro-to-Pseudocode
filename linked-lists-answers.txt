@@ -18,76 +18,147 @@ Before beginning to code, write out a plan explaining how to solve the question.
     Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. 
     Submit both an explanation of the bug and a functional implementation of the method.
 
+		FUNCTION push(element)
+		CREATE node
+		SET node.value TO element
+		SET node.next TO null
 
+		IF the head node does not exist
+		 THEN SET head to node
+		ELSE
+		 SET current to head
+		 SET current.next to node
+		END IF
+		END FUNCTION
 
 	A:  The bug in the pseudocode is in the lines “SET current to head  SET current.next to node”. 
 	    You want the new node to be added to the end instead of the second spot. 
 
-		class LinkedList {
-		   constructor(){
-			this.head= null;
-            }
- 
-		push(element){
-		  var newNode = {
-		    value: element,
-    		    next: null,
-		};
-
-		If (!LinkedList.head) {
-		   LinkedList.head = newNode;
-		} else {
-		   let current = LinkedList.head;
-		   while(current.next != null) {
+		function LinkedList() {
+		  this.head= null;
+        	}
+ 	
+		LinkedList.prototype.push = function(val) {
+		  var node =  {
+			value: val,
+			next: null
+		  }
+		  if(!this.head){
+ 		    this.head = node;
+		  }	
+		  else {
+		    current = this.head;
+ 		    while(current.next){
 			current = current.next;
-		   }
-		   current.next = newNode;
-		 }
+		    }
+		    current.next = node;
+		    }
+		  }
+
+		  var test =  new LinkedList();
+
+		  test.push(‘developer’);
+		  test.push(‘designer’);
+
+		  console.log(test);		
+
+2. Given an unsorted singly linked list, remove all duplicates from the linked list.
+	Example
+	Input: a -> c -> d -> d -> a
+	Output: a -> c -> d
+
+
+3. Given an unsorted singly linked list, reverse it.
+	Example
+	Input: a -> b -> c -> d
+	Output: d -> c -> b -> a
+
+	
+A:    function LinkedList() {
+		this.head = null;
+		this.length = 0;
+	      }
+
+	      LinkedList.prototype.push = function(val) {
+		 var node = {
+		   value: val,
+		   next: null
+	      }
 		
-	    }
-
-
-	    removeDuplicates() {
-		var singles = [];
-		var current = Linkedlist.head; 
-		singles.push(current.value);
-
-		while(current.next != null){
-		   if(singles.includes(current.next.value)){
-		       current = current.next;
-		   } else {
-		      current = current.next;
-		      singles.push(current.value);
-		   }
+		if(!this.head) {  
+		   this.head = node;
+		   this.length = length + 1;
+		   return node;
+	        }
+		else {
+		  current = this.head;
+		  while(current.next) {
+		     current = current.next;
+		  }
+		  current.next = node;
+		  this.length = length + 1;
+		  return node;
 		}
-		return singles;
+	      }
+
+	      LinkedList.prototype.duplicate = function() { 
+		if(!this.head || !this.head.next) {
+		   console.log("No duplicates found");
+		   return;
 	     }
-		
 
-          reverse() {
-		  var list = [];
-  		  var reversedList = [];
-		 
- 		  var current = LinkedList.head;
-		  list.push(current.value);
-		
-		  while(current.next != null) {
-        	    current = current.next;
-		    list.push(current.value);
-		  }
+	     var thisNode = this.head;
+	     while(thisNode != null) {
+		var lastNode = thisNode;
+		var nextNode = thisNode.next;
+	     while(nextNode != null) {
+		if(thisNode.value == nextNode.value) {
+		    lastNode.next = nextNode.next;
+		    this.length --;
+		} else {
+		   lastNode = nextNode;
+	     }
+	     nextNode = nextNode.next;
+	    }
+            thisNode = thisNode.next;
+	   }
+	   return this;
+	 }
 
-		  for(let i= list.length -1; i >= 0; i--) {
-		    reversedList.push(list[i]);
-		  }
-		
-		  return reversedList;
- 		  }
-	       }
+	list = new LinkedList();
 
-		var test = new LinkedList();
+	list.push(1);
+	list.push(2);
+	list.push(2);
+	list.duplicate();
 
-		test.push(‘developer’);
-		test.push(‘designer’);
+	console.log(list);
 
-		test.removeDuplicate();
-		test.reverse();	
+
+ 	LinkedList.prototype.reverse = function() {
+ 	   var lastNode = null;
+	   var thisNode = this.head;
+	   var nextNode;
+
+	   while(thisNode) {
+	      nextNode = thisNode.next;
+	      thisNode.next = lastNode;
+	      lastNode = thisNode;
+	      thisNode = nextNode;
+	   }
+	   this.head = lastNode;
+        }
+
+	test = new LinkedList();
+
+	test.push(5);
+	test.push(4);
+	test.push(3);
+	test.push(2);
+	test.reverse();
+
+
+	console.log(test);
+
+
+
